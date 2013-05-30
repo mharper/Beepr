@@ -7,6 +7,7 @@
 //
 
 #import "SACViewController.h"
+#import "AudioToolbox/AudioServices.h"
 
 @interface SACViewController ()
 
@@ -24,6 +25,15 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(IBAction) beepAction
+{
+  OSStatus audioFileError;
+  SystemSoundID beepId;
+  NSString *pathToBeep = [[NSBundle mainBundle] pathForResource:@"big_beep" ofType:@"wav"];
+  audioFileError = AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:pathToBeep], &beepId);
+  AudioServicesPlaySystemSound(beepId);
 }
 
 @end
